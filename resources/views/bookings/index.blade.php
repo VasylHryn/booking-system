@@ -8,6 +8,11 @@
 </head>
 <body class="bg-gray-100 text-gray-800">
 <div class="container mx-auto p-4 ">
+    @if (session('success'))
+        <div class="bg-green-500 text-white p-3 rounded mb-4">
+            {{ session('success') }}
+        </div>
+    @endif
     <h1 class="text-2xl font-bold mb-4">Bookings List</h1>
     <table class="table-auto w-full bg-white rounded shadow">
         <thead>
