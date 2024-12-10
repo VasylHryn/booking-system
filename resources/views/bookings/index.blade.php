@@ -15,12 +15,13 @@
     @endif
     <h1 class="text-2xl font-bold mb-4">Bookings List</h1>
     <table class="table-auto w-full bg-white rounded shadow">
-        <thead>
+        <<thead>
         <tr>
             <th class="px-4 py-2 border">ID</th>
             <th class="px-4 py-2 border">Name</th>
             <th class="px-4 py-2 border">Email</th>
             <th class="px-4 py-2 border">Booking Date</th>
+            <th class="px-4 py-2 border">Actions</th> <!-- Новая колонка -->
         </tr>
         </thead>
         <tbody>
@@ -30,10 +31,27 @@
                 <td class="px-4 py-2 border">{{ $booking->name }}</td>
                 <td class="px-4 py-2 border">{{ $booking->email }}</td>
                 <td class="px-4 py-2 border">{{ $booking->booking_date }}</td>
+                <td class="px-4 py-2 border text-center">
+                    <!-- Кнопка редактирования -->
+                    <a href="{{ route('bookings.edit', $booking->id) }}"
+                       class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-700">
+                        Edit
+                    </a>
+                    <!-- Кнопка удаления -->
+                    <form action="{{ route('bookings.destroy', $booking->id) }}" method="POST" class="inline-block">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit"
+                                onclick="return confirm('Are you sure?')"
+                                class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-700">
+                            Delete
+                        </button>
+                    </form>
+                </td>
             </tr>
         @empty
             <tr>
-                <td colspan="4" class="text-center px-4 py-2 border">No bookings available</td>
+                <td colspan="5" class="text-center px-4 py-2 border">No bookings available</td>
             </tr>
         @endforelse
         </tbody>
